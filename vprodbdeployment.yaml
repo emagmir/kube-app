@@ -19,7 +19,7 @@ spec:
           image: vprofile/vprofiledb:V1
 #          args:
 #           - "--ignore-db-dir=lost+found"
-          volumeMounts: 
+          volumeMounts:
            - mountPath: /var/lib/mysql
              name: vpro-db-data
           ports:
@@ -33,10 +33,11 @@ spec:
                  key: db-pass
       nodeSelector:
         zone: us-east-1a
+        # don't forget to label at least one of the nodes with the zone so pod can be deployed on it
       volumes:
        - name: vpro-db-data
-         awsElasticBlockStore: 
-           volumeID: vol-0bd53c5ee568ae2f0
+         awsElasticBlockStore:
+           volumeID: vol-07e82926c599a3d9d
            fsType: ext4
 
       initContainers:
@@ -46,4 +47,3 @@ spec:
          volumeMounts:
           - name: vpro-db-data
             mountPath: /var/lib/mysql
-
